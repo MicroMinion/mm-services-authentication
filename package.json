@@ -1,6 +1,6 @@
 {
   "name": "mm-services-authentication",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Establishes trust between two MicroMinion nodes",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,8 @@
   },
   "homepage": "https://github.com/MicroMinion/mm-services-authentication#readme",
   "dependencies": {
-    "inherits": "2.0.1",
+    "async": "2.0.1",
+    "inherits": "2.0.3",
     "lodash": "4.15.0",
     "mm-create-identity": "1.2.2"
   },
