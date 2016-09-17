@@ -5,6 +5,7 @@ var events = require('events')
 var inherits = require('inherits')
 var utils = require('mm-create-identity')
 var _ = require('lodash')
+var async = require('async')
 
 var SESSION_TIMEOUT_INTERVAL = 10 * 1000
 var MAXIMUM_SESSION_TIME = 1000 * 60 * 5
@@ -41,7 +42,7 @@ AuthenticationService.prototype._sendAuthResult = function (publicKey, success) 
   var self = this
   var retry = function (err) {
     if (err && success && self.__sendRetries < MAX_SEND_RETRIES) {
-      setImmediate(function () {
+      async.setImmediate(function () {
         self._sendAuthResult(publicKey, success)
       })
       self.__sendRetries = self.__sendRetries + 1
