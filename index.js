@@ -6,6 +6,7 @@ var inherits = require('inherits')
 var utils = require('mm-create-identity')
 var _ = require('lodash')
 var async = require('async')
+var winstonWrapper = require('winston-meta-wrapper')
 
 var SESSION_TIMEOUT_INTERVAL = 10 * 1000
 var MAXIMUM_SESSION_TIME = 1000 * 60 * 5
@@ -17,7 +18,10 @@ var AuthenticationService = function (options) {
   assert(_.isObject(options.platform))
   assert(_.isObject(options.logger))
   this.platform = options.platform
-  this._log = options.logger
+  this._log = winstonWrapper(options.logger)
+  this._log.addMeta({
+    module: 'mm:services:authentication'
+  })
   this.platform.messaging.on('self.authentication.auth', this._onAuth.bind(this))
   this.platform.messaging.on('self.authentication.authResult', this._onAuthResult.bind(this))
   this.platform.messaging.on('friends.authentication.auth', this._onAuth.bind(this))
